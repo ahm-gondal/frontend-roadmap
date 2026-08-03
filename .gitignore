@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+.env
+
+# personal notes and reports, kept local only
+01-internet/
+progress/
+02-html/notes.md
+02-html/project-devcard/README.md
+02-html/assessment-prep-internet-and-html.pdf
+02-html/make_qa_pdf.py

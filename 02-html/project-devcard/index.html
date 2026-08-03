@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Ahmed Hassaan Gondal — Frontend &amp; Machine Learning</title>
+  <meta name="description"
+        content="CS student at Quaid-i-Azam University and data science intern at Arch Technologies. Projects in LLM agents, trading systems and frontend engineering.">
+  <link rel="canonical" href="https://ahm-gondal.github.io/devcard/">
+
+  <!-- Link previews on LinkedIn / WhatsApp / X -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Ahmed Hassaan Gondal — Frontend &amp; Machine Learning">
+  <meta property="og:description"
+        content="CS student at Quaid-i-Azam University and data science intern at Arch Technologies.">
+  <meta property="og:url" content="https://ahm-gondal.github.io/devcard/">
+  <meta property="og:image" content="https://ahm-gondal.github.io/devcard/preview.png">
+  <meta property="og:image:alt" content="Ahmed Hassaan Gondal, developer profile card">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Structured data: tells search engines this page describes a Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ahmed Hassaan Gondal",
+    "jobTitle": "Data Science Intern",
+    "worksFor": { "@type": "Organization", "name": "Arch Technologies" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Quaid-i-Azam University, Islamabad" },
+    "url": "https://ahm-gondal.github.io/",
+    "sameAs": [
+      "https://github.com/ahm-gondal",
+      "https://www.linkedin.com/in/ahmed-hassaan-gondal-4175a73b6/",
+      "https://huggingface.co/ahm-gondal"
+    ],
+    "knowsAbout": ["Machine Learning", "LLM Agents", "Frontend Engineering", "Python", "JavaScript"]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- First focusable element on the page: lets keyboard users jump the nav. -->
+  <a href="#main">Skip to main content</a>
+
+  <header>
+    <p><strong>Ahmed Hassaan Gondal</strong></p>
+
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Exactly one <main> per page. -->
+  <main id="main">
+    <h1>Ahmed Hassaan Gondal</h1>
+    <p>Computer Science student at Quaid-i-Azam University, Islamabad. Data science
+      intern at Arch Technologies, currently working through a frontend engineering
+      roadmap.</p>
+
+    <!-- Each <section> is labelled by its own heading via aria-labelledby, so it
+         is exposed as a navigable region rather than an anonymous group. -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p>I build things that sit between machine learning and the browser: LLM agents
+        with real interfaces, trading tooling, and data pipelines. My background is
+        Python-first, so I am learning frontend deliberately — starting from how the
+        web actually works rather than from a framework.</p>
+      <p>Based in Islamabad, Pakistan.
+        <span lang="ur" dir="rtl">اسلام آباد، پاکستان</span>
+      </p>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+
+      <!-- <article>: each project is self-contained and would make sense alone. -->
+      <article aria-labelledby="p-meeting">
+        <h3 id="p-meeting">Meeting → Action Agent</h3>
+        <p>Turns a meeting transcript into owned, dated action items. Whisper for
+          transcription, an LLM for extraction, deployed as a public demo.</p>
+        <p>
+          <a href="https://huggingface.co/spaces/ahm-gondal/meeting-action-agent">
+            Try the live demo on Hugging Face
+          </a>
+        </p>
+        <p>Published <time datetime="2026-05">May 2026</time>.</p>
+      </article>
+
+      <article aria-labelledby="p-trading">
+        <h3 id="p-trading">MVP Trading Agent</h3>
+        <p>An agent that ingests market data, evaluates a rules-based strategy and
+          logs its reasoning per decision, so trades can be audited after the fact.</p>
+        <p>
+          <a href="https://github.com/ahm-gondal/mvp-trading-agent">
+            Read the trading agent source on GitHub
+          </a>
+        </p>
+      </article>
+
+      <article aria-labelledby="p-pipelines">
+        <h3 id="p-pipelines">ML Pipelines — Internship, Month 1</h3>
+        <p>End-to-end pipelines built during the Arch Technologies internship:
+          cleaning, feature engineering, model selection and evaluation, written up
+          per dataset.</p>
+        <p>
+          <a href="https://github.com/ahm-gondal/data-science-internship-month1">
+            Read the internship pipeline write-ups on GitHub
+          </a>
+        </p>
+      </article>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Skills</h2>
+
+      <!-- A description list is the honest structure for name/value pairs. -->
+      <dl>
+        <dt>Languages</dt>
+        <dd>Python, JavaScript, SQL, C++</dd>
+
+        <dt>Machine learning</dt>
+        <dd>scikit-learn, PyTorch, pandas, NumPy</dd>
+
+        <dt>Frontend</dt>
+        <dd>HTML, CSS <em>(in progress)</em></dd>
+
+        <dt>Tools</dt>
+        <dd>Git, Docker, Linux, Hugging Face</dd>
+      </dl>
+
+      <h3>Currently learning</h3>
+      <ol>
+        <li><s>Internet fundamentals</s> — done</li>
+        <li><s>HTML</s> — done</li>
+        <li>CSS — in progress</li>
+        <li>JavaScript</li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="quote-heading">
+      <h2 id="quote-heading">Working principle</h2>
+      <blockquote cite="https://www.w3.org/TR/using-aria/">
+        <p>If you can use a native HTML element or attribute with the semantics and
+          behaviour you require already built in, then do so.</p>
+        <footer>— <cite>W3C, Using ARIA</cite></footer>
+      </blockquote>
+    </section>
+  </main>
+
+  <!-- Tangential to the page's main content. -->
+  <aside aria-labelledby="colophon-heading">
+    <h2 id="colophon-heading">About this page</h2>
+    <p>Written as the project for section 2 of my frontend roadmap. No CSS and no
+      JavaScript — the point was to check whether the markup alone carries the
+      structure, the meaning and the accessibility.</p>
+  </aside>
+
+  <footer>
+    <p>
+      <a href="https://github.com/ahm-gondal">GitHub profile</a> ·
+      <a href="https://www.linkedin.com/in/ahmed-hassaan-gondal-4175a73b6/">LinkedIn profile</a> ·
+      <a href="contact.html">Contact form</a>
+    </p>
+    <p><small>Last updated <time datetime="2026-08-03">3 August 2026</time>.</small></p>
+  </footer>
+</body>
+</html>

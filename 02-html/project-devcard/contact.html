@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Contact — Ahmed Hassaan Gondal</title>
+  <meta name="description"
+        content="Get in touch with Ahmed Hassaan Gondal about internships, collaboration or freelance frontend and machine learning work.">
+  <link rel="canonical" href="https://ahm-gondal.github.io/devcard/contact.html">
+  <meta property="og:title" content="Contact — Ahmed Hassaan Gondal">
+  <meta property="og:type" content="website">
+</head>
+
+<body>
+  <a href="#main">Skip to main content</a>
+
+  <header>
+    <p><strong>Ahmed Hassaan Gondal</strong></p>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1>Contact</h1>
+    <p>Every rule on this form is enforced by HTML alone — no JavaScript. Submitting
+      with an empty or malformed field triggers the browser's own validation.</p>
+
+    <!-- httpbin echoes the submission back, so the POST body is inspectable in
+         DevTools. Real handling belongs on a server (section 12). -->
+    <form action="https://httpbin.org/post" method="post">
+
+      <!-- ── Group 1: who ───────────────────────────────────────────── -->
+      <fieldset>
+        <legend>Your details</legend>
+
+        <p>
+          <label for="name">Full name (required)</label><br>
+          <input type="text" id="name" name="name"
+                 required minlength="2" maxlength="80"
+                 autocomplete="name" autofocus>
+        </p>
+
+        <p>
+          <label for="email">Email (required)</label><br>
+          <input type="email" id="email" name="email"
+                 required autocomplete="email"
+                 aria-describedby="email-hint">
+          <!-- Tied to the input, so it is announced with the field, not orphaned. -->
+          <span id="email-hint"><small>I reply from ahmedhassaangondal@gmail.com.</small></span>
+        </p>
+
+        <p>
+          <!-- NOT type="number": that strips the leading 0 and rejects "+".
+               inputmode still gives mobile users a numeric keypad. -->
+          <label for="phone">Phone (optional)</label><br>
+          <input type="tel" id="phone" name="phone"
+                 inputmode="tel" autocomplete="tel"
+                 pattern="[0-9+\s\-]{7,20}"
+                 title="Digits, spaces, + and - only. Example: +92 300 1234567"
+                 aria-describedby="phone-hint">
+          <span id="phone-hint"><small>Format: +92 300 1234567</small></span>
+        </p>
+
+        <p>
+          <label for="company">Company or university (optional)</label><br>
+          <input type="text" id="company" name="company"
+                 maxlength="100" autocomplete="organization">
+        </p>
+      </fieldset>
+
+      <!-- ── Group 2: radios. The <legend> is what tells a screen-reader user
+           what these options are FOR — without it they hear four loose labels. -->
+      <fieldset>
+        <legend>What is this about? (required)</legend>
+
+        <p>
+          <input type="radio" id="topic-job" name="topic" value="job" required>
+          <label for="topic-job">A job or internship</label>
+        </p>
+        <p>
+          <input type="radio" id="topic-freelance" name="topic" value="freelance">
+          <label for="topic-freelance">Freelance work</label>
+        </p>
+        <p>
+          <input type="radio" id="topic-collab" name="topic" value="collab">
+          <label for="topic-collab">Open-source collaboration</label>
+        </p>
+        <p>
+          <input type="radio" id="topic-other" name="topic" value="other">
+          <label for="topic-other">Something else</label>
+        </p>
+      </fieldset>
+
+      <!-- ── Group 3: the message ───────────────────────────────────── -->
+      <fieldset>
+        <legend>Your message</legend>
+
+        <p>
+          <label for="budget">Budget in USD (optional)</label><br>
+          <input type="number" id="budget" name="budget"
+                 min="0" max="100000" step="50"
+                 aria-describedby="budget-hint">
+          <span id="budget-hint"><small>Only relevant for freelance enquiries.</small></span>
+        </p>
+
+        <p>
+          <label for="deadline">Needed by (optional)</label><br>
+          <input type="date" id="deadline" name="deadline" min="2026-08-03">
+        </p>
+
+        <p>
+          <label for="found">How did you find me? (optional)</label><br>
+          <select id="found" name="found">
+            <option value="">Choose one…</option>
+            <optgroup label="Online">
+              <option value="github">GitHub</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="search">Search engine</option>
+            </optgroup>
+            <optgroup label="Offline">
+              <option value="university">University</option>
+              <option value="referral">Someone referred me</option>
+            </optgroup>
+          </select>
+        </p>
+
+        <p>
+          <label for="message">Message (required, 20–1000 characters)</label><br>
+          <textarea id="message" name="message" rows="6" cols="50"
+                    required minlength="20" maxlength="1000"
+                    aria-describedby="message-hint"></textarea>
+          <span id="message-hint">
+            <small>Tell me what you are building and what you need from me.</small>
+          </span>
+        </p>
+
+        <p>
+          <input type="checkbox" id="cc" name="cc" value="yes" checked>
+          <label for="cc">Send me a copy of this message</label>
+        </p>
+
+        <p>
+          <input type="checkbox" id="consent" name="consent" value="yes" required>
+          <label for="consent">
+            I agree to be contacted at the address above (required)
+          </label>
+        </p>
+      </fieldset>
+
+      <p>
+        <button type="submit">Send message</button>
+        <button type="reset">Clear form</button>
+      </p>
+    </form>
+
+    <h2>Other ways to reach me</h2>
+    <!-- <address> = contact details for the nearest article/body. -->
+    <address>
+      <a href="mailto:ahmedhassaangondal@gmail.com">ahmedhassaangondal@gmail.com</a><br>
+      <a href="https://github.com/ahm-gondal">GitHub: ahm-gondal</a><br>
+      <a href="https://www.linkedin.com/in/ahmed-hassaan-gondal-4175a73b6/">LinkedIn profile</a>
+    </address>
+  </main>
+
+  <footer>
+    <p><a href="index.html">Back to profile</a></p>
+  </footer>
+</body>
+</html>
