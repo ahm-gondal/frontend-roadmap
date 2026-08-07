@@ -1,13 +1,13 @@
 /* ==========================================================================
    Stylesheet for the DevCard pages.
 
-   Section 3 of the roadmap, first half: CSS fundamentals only.
-   No flexbox, no grid, no media queries yet, those come with layouts and
-   responsive design. Everything here is selectors, the cascade, the box
-   model, units, colour and typography.
+   Section 3 of the roadmap, both halves.
+   First half: selectors, the cascade, the box model, units, colour, typography.
+   Second half: flexbox, grid and responsive design, added on top.
 
-   The HTML was not restructured to make this work. The only change to the
-   markup was adding the <link> tag in <head>.
+   Written mobile first: the base rules are the phone layout, and media queries
+   only ever add to them going up. The HTML was never restructured, the only
+   change to the markup was adding the <link> tag in <head>.
    ========================================================================== */
 
 
@@ -91,8 +91,11 @@ h1, h2, h3 {
   margin-bottom: 0.5rem;
 }
 
+/* clamp(minimum, preferred, maximum). The middle value scales with the
+   viewport, so the heading grows smoothly between phone and desktop instead of
+   jumping at a breakpoint. No media query needed. */
 h1 {
-  font-size: 2.25rem;
+  font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);
   margin-top: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 3px solid var(--accent);
@@ -178,15 +181,16 @@ header > p {
   color: var(--ink-soft);
 }
 
+/* Flexbox replaces the inline-block version from the first half.
+   flex-wrap lets the items drop to a second line on a narrow phone instead of
+   overflowing, and gap handles the spacing so no margins are needed. */
 nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-nav li {
-  display: inline-block;
-  margin-right: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 nav a {
@@ -216,13 +220,34 @@ section {
   margin-bottom: 2rem;
 }
 
+/* Grid for any section that directly contains articles, matched with :has()
+   so no class had to be added to the HTML.
+
+   auto-fit + minmax is the whole responsive pattern in one line: fit as many
+   columns as will hold at least 18rem, and let them share the leftover space.
+   One column on a phone, two on a laptop, with no media query involved. */
+section:has(> article) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--space);
+  align-items: start;
+}
+
+/* The heading is a grid item too, so it has to be told to span every column.
+   1 / -1 means from the first line to the last, whatever the column count. */
+section:has(> article) > h2 {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
 article {
   background-color: var(--card);
   border: 1px solid var(--line);
   border-left: 4px solid var(--accent);
   border-radius: var(--radius);
   padding: var(--space) 1.25rem;
-  margin-bottom: var(--space);
+  /* No margin-bottom: the grid gap already handles the spacing. Leaving it in
+     would double up on the gap. */
 }
 
 article h3 {
@@ -375,4 +400,90 @@ button[type="reset"] {
 
 button[type="reset"]:hover {
   background-color: var(--accent-dim);
+}
+
+/* The two buttons sit in one <p>. Flexbox puts them in a row with a real gap,
+   and wrap means they stack rather than overflow on a narrow screen. */
+form > p:last-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   8. Responsive design
+
+   Everything above is the phone layout. These rules only add to it going up,
+   which is what "mobile first" means in practice: min-width queries, never
+   max-width. Breakpoints are in em so they respond to the user's font size,
+   and they were chosen where the layout actually broke, not from device sizes.
+   -------------------------------------------------------------------------- */
+
+/* From roughly 40em (640px): more breathing room, and the description list
+   becomes two columns of term and value instead of stacked. */
+@media (min-width: 40em) {
+  main,
+  header,
+  aside,
+  body > footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 0.4rem 1rem;
+    align-items: baseline;
+  }
+
+  dt { margin-top: 0; }
+
+  dd {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+/* From 60em (960px) the header can put the name and the nav on one line.
+   justify-content: space-between pushes them to opposite ends. */
+@media (min-width: 60em) {
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space);
+  }
+
+  header > p { margin-bottom: 0; }
+}
+
+/* Respect the operating system setting. Some people get motion sickness from
+   animation, and this is the switch they use to say so. */
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button {
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+}
+
+/* Printing is a real medium. Backgrounds waste ink and links are useless on
+   paper unless the URL is printed next to them. */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  nav,
+  body > a[href="#main"] {
+    display: none;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+  }
 }

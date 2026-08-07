@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layout practice</title>
+  <meta name="description" content="Flexbox, grid and responsive design practice. Four layouts, no framework.">
+  <link rel="stylesheet" href="layouts.css">
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <!-- Demo 1: flexbox for a page header. -->
+  <header class="site-header">
+    <p class="brand">Layout practice</p>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#flex-bar">Flex bar</a></li>
+        <li><a href="#flex-media">Media object</a></li>
+        <li><a href="#grid-cards">Card grid</a></li>
+        <li><a href="#grid-areas">Page layout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1>Four layouts, no framework</h1>
+    <p class="lead">Flexbox, grid and responsive design. Resize the window and
+      every one of these reflows. Only two of them use a media query at all.</p>
+
+    <section id="flex-bar" aria-labelledby="flex-bar-h">
+      <h2 id="flex-bar-h">1. Flexbox: a toolbar</h2>
+      <p>One row, one axis. <code>justify-content: space-between</code> pushes the
+        groups apart and <code>gap</code> spaces the buttons, so no margins are
+        needed. <code>flex-wrap</code> lets it stack on a narrow screen.</p>
+
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <button type="button">New</button>
+          <button type="button">Open</button>
+          <button type="button">Save</button>
+        </div>
+        <div class="toolbar-group">
+          <button type="button">Help</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="flex-media" aria-labelledby="flex-media-h">
+      <h2 id="flex-media-h">2. Flexbox: the media object</h2>
+      <p>A fixed-size thing next to text that takes the rest. The avatar is
+        <code>flex: 0 0 auto</code> so it never shrinks, the body is
+        <code>flex: 1</code> so it absorbs whatever is left.</p>
+
+      <div class="media">
+        <div class="avatar" aria-hidden="true">AD</div>
+        <div class="media-body">
+          <h3>Why flex-shrink matters</h3>
+          <p>Flex items shrink by default. Without <code>flex-shrink: 0</code> the
+            avatar squashes into an oval as soon as the text gets long. This is
+            the single most common flexbox bug.</p>
+        </div>
+      </div>
+
+      <div class="media">
+        <div class="avatar" aria-hidden="true">02</div>
+        <div class="media-body">
+          <h3>align-items controls the cross axis</h3>
+          <p>The default is <code>stretch</code>, which makes every item as tall
+            as the tallest. <code>flex-start</code> keeps them at their natural
+            height, which is what these rows use.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="grid-cards" aria-labelledby="grid-cards-h">
+      <h2 id="grid-cards-h">3. Grid: cards that fit themselves</h2>
+      <p>One line does the whole thing:
+        <code>repeat(auto-fit, minmax(15rem, 1fr))</code>. Fit as many columns as
+        can hold 15rem, then share the leftover space equally. Three columns on a
+        laptop, one on a phone, and <strong>no media query</strong>.</p>
+
+      <ul class="card-grid">
+        <li class="card">
+          <h3>auto-fit</h3>
+          <p>Collapses empty tracks so the cards stretch to fill the row.</p>
+        </li>
+        <li class="card">
+          <h3>auto-fill</h3>
+          <p>Keeps empty tracks, so cards stay their minimum size and leave a gap.</p>
+        </li>
+        <li class="card">
+          <h3>minmax()</h3>
+          <p>Sets a floor and a ceiling for a track. The floor is what triggers
+            the wrap.</p>
+        </li>
+        <li class="card">
+          <h3>fr</h3>
+          <p>A share of the space that is left after gaps and fixed tracks are
+            taken out.</p>
+        </li>
+        <li class="card">
+          <h3>gap</h3>
+          <p>Space between tracks only, never on the outside edges.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="grid-areas" aria-labelledby="grid-areas-h">
+      <h2 id="grid-areas-h">4. Grid: a page layout that reflows</h2>
+      <p>Named areas with <code>grid-template-areas</code>. The layout is drawn in
+        the CSS as ASCII art, and the breakpoint just redraws the picture. The
+        HTML order never changes, so the reading order stays correct.</p>
+
+      <div class="page-demo">
+        <div class="pd-head">header</div>
+        <div class="pd-side">sidebar</div>
+        <div class="pd-main">main content</div>
+        <div class="pd-foot">footer</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Section 3 of the frontend roadmap, second half.</p>
+  </footer>
+</body>
+</html>

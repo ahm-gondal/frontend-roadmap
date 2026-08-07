@@ -1,0 +1,357 @@
+/* ==========================================================================
+   Layout practice: flexbox, grid and responsive design.
+   Section 3 of the roadmap, second half.
+
+   Mobile first. Every base rule is the phone layout and the media queries only
+   add to it going up. There are exactly two media queries in this file, both
+   min-width, and neither one is needed for the card grid.
+   ========================================================================== */
+
+:root {
+  --ink:       #1c1f23;
+  --ink-soft:  #5b6670;
+  --accent:    #0b4f6c;
+  --tint:      #e7eef2;
+  --line:      #d5dee3;
+  --page:      #fbfcfd;
+  --card:      #ffffff;
+  --space:     1rem;
+  --radius:    8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--page);
+}
+
+h1, h2, h3 { color: var(--accent); line-height: 1.25; }
+h1 { font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.4rem); margin: 0 0 0.5rem; }
+h2 { font-size: 1.4rem; margin: 0 0 0.5rem; }
+h3 { font-size: 1.05rem; color: var(--ink); margin: 0 0 0.35rem; }
+
+p { margin: 0 0 var(--space); }
+
+code {
+  font-family: Consolas, "SF Mono", monospace;
+  font-size: 0.9em;
+  background: var(--tint);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+
+  /* A block cannot shrink below its min-content width, which is the width of
+     its longest unbreakable string. A snippet like
+     "repeat(auto-fit, minmax(15rem, 1fr))" has no spaces to break at, so on a
+     narrow phone it can push the page wider than the viewport and cause
+     sideways scrolling. This allows a break inside the word, which fixes it at
+     the source rather than hiding it with overflow-x. */
+  overflow-wrap: break-word;
+}
+
+button {
+  font: inherit;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+button:hover { background: var(--tint); }
+
+a { color: var(--accent); }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  position: static;
+  display: inline-block;
+  margin: var(--space);
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+}
+
+
+/* --------------------------------------------------------------------------
+   Page shell
+   -------------------------------------------------------------------------- */
+
+.site-header,
+main,
+.site-footer {
+  max-width: 62rem;
+  margin-inline: auto;          /* logical property: left and right in one go */
+  padding-inline: var(--space);
+}
+
+.site-header {
+  padding-block: var(--space);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.site-header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.site-header nav a {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.site-header nav a:hover { background: var(--tint); }
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+
+main { padding-block: 1.5rem 2rem; }
+
+section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+section:last-of-type { border-bottom: 0; }
+
+.site-footer {
+  padding-block: var(--space) 2rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   1. Flexbox toolbar
+
+   One main axis. space-between pushes the first group left and the last group
+   right, with all the free space dumped between them.
+   -------------------------------------------------------------------------- */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.toolbar-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. The media object
+
+   The oldest layout pattern on the web and still the clearest demonstration of
+   flex-grow, flex-shrink and flex-basis.
+   -------------------------------------------------------------------------- */
+
+.media {
+  display: flex;
+  align-items: flex-start;      /* without this both items stretch to full height */
+  gap: var(--space);
+  padding: var(--space);
+  margin-bottom: var(--space);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+}
+
+/* flex: 0 0 auto is shorthand for grow 0, shrink 0, basis auto.
+   The shrink 0 is the important part: flex items shrink by default, and
+   without it this circle squashes into an oval as the text grows. */
+.avatar {
+  flex: 0 0 auto;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  /* Centring one thing inside another: three lines with flexbox. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* flex: 1 is grow 1, shrink 1, basis 0. Take everything that is left.
+   min-width: 0 overrides the automatic minimum size of a flex item, which is
+   otherwise the width of its longest word and will cause overflow. */
+.media-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.media-body p:last-child { margin-bottom: 0; }
+
+
+/* --------------------------------------------------------------------------
+   3. Grid card layout
+
+   The responsive part is auto-fit + minmax, not a media query. The browser
+   works out the column count from the available width on its own.
+   -------------------------------------------------------------------------- */
+
+.card-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space);
+}
+
+.card {
+  padding: var(--space);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--accent);
+}
+
+.card p {
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Named grid areas
+
+   The layout is written out as a picture. On a phone it is a single column and
+   everything is stacked. The breakpoint below redraws it with a sidebar.
+   -------------------------------------------------------------------------- */
+
+.page-demo {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-areas:
+    "head"
+    "main"
+    "side"
+    "foot";
+  /* Source order in the HTML is header, sidebar, main, footer. On mobile the
+     sidebar is placed after the main content visually, which is why grid areas
+     need care: the tab order still follows the HTML, not the picture. */
+}
+
+.page-demo > div {
+  padding: 1.25rem 1rem;
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: 0.9rem;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+/* These are written as .page-demo > .pd-* on purpose.
+
+   Written as plain .pd-head it scores 0,1,0 while the .page-demo > div rule
+   above scores 0,1,1, so the generic rule won and the header box kept its white
+   background while still taking color: #fff. White text on white: the box
+   rendered completely blank. Matching the parent puts these at 0,2,0 so the
+   specific rule wins, which is what was intended. */
+.page-demo > .pd-head {
+  grid-area: head;
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.page-demo > .pd-side {
+  grid-area: side;
+  background: var(--tint);
+}
+
+.page-demo > .pd-main {
+  grid-area: main;
+  min-height: 7rem;
+}
+
+.page-demo > .pd-foot {
+  grid-area: foot;
+  color: var(--ink-soft);
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive rules
+
+   Breakpoints in em, so they scale with the user's font size, and chosen where
+   the layout actually broke rather than from a list of device widths.
+   -------------------------------------------------------------------------- */
+
+/* ~640px: the header can put the brand and the nav on one line. */
+@media (min-width: 40em) {
+  .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space);
+  }
+
+  .brand { margin-bottom: 0; }
+}
+
+/* ~880px: enough width for a real sidebar. The areas are redrawn, and the
+   sidebar moves back to the left without a single tag moving in the HTML. */
+@media (min-width: 55em) {
+  .page-demo {
+    grid-template-columns: 14rem 1fr;
+    grid-template-areas:
+      "head head"
+      "side main"
+      "foot foot";
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a, button { transition: background-color 150ms ease; }
+}
